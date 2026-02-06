@@ -1908,71 +1908,6 @@ function simularOutrasPartidas() {
     });
 }
 
-function avancarSemana() {
-    gameState.currentWeek++;
-    
-    // Processar scouts
-    gameState.activeScouting = gameState.activeScouting.filter(scout => {
-        scout.weeksRemaining--;
-        if (scout.weeksRemaining <= 0) {
-            // Gerar relatório
-            const report = {
-                week: gameState.currentWeek,
-                type: scout.type,
-                players: []
-            };
-            
-            for (let i = 0; i < 3; i++) {
-                report.players.push({
-                    name: `Talento${Math.floor(Math.random() * 1000)}`,
-                    role: ['TOP', 'JG', 'MID', 'ADC', 'SUP'][Math.floor(Math.random() * 5)],
-                    overall: 60 + Math.floor(Math.random() * 10)
-                });
-            }
-            
-            gameState.scoutReports.push(report);
-            showNotification(`🔍 Relatório de scout disponível!`, 'success');
-            return false;
-        }
-        return true;
-    });
-    
-    // Pagar salários mensalmente
-    if (gameState.currentWeek % 4 === 0) {
-        const totalSalaries = gameState.currentTeam.roster.reduce((sum, p) => sum + p.salary, 0);
-        const sponsorIncome = socialMediaSystem.getMonthlyIncome();
-        const staffCost = getStaffMonthlyCost();
-        
-        gameState.money -= (totalSalaries + staffCost - sponsorIncome);
-        showNotification(`💸 Salários pagos: R$ ${totalSalaries.toLocaleString('pt-BR')}`, 'info');
-        
-        if (sponsorIncome > 0) {
-            showNotification(`💵 Receita de patrocínios: R$ ${sponsorIncome.toLocaleString('pt-BR')}`, 'success');
-        }
-    }
-    
-    // Eventos aleatórios
-    if (Math.random() > 0.7) {
-        const eventos = [
-            { text: '📈 Jogador em ótima forma!', morale: 5 },
-            { text: '😔 Jogador desmotivado', morale: -5 },
-            { text: '🎯 Treino extra realizado!', morale: 3 }
-        ];
-        
-        const evento = eventos[Math.floor(Math.random() * eventos.length)];
-        gameState.morale = Math.max(0, Math.min(100, gameState.morale + evento.morale));
-        showNotification(evento.text, evento.morale > 0 ? 'success' : 'warning');
-    }
-    
-    atualizarHeader();
-    showNotification(`📅 Semana ${gameState.currentWeek}`, 'info');
-    
-    // Verificar fim da temporada
-    if (championship.currentRound > championship.totalRounds) {
-        endSeason();
-    }
-}
-
 function getStaffMonthlyCost() {
     let cost = 0;
     if (staffSystem.psychologist) cost += 15000;
@@ -2993,8 +2928,6 @@ function mostrarResultadosRodada() {
 
 // Atualizar a função de avançar semana para simular rodada completa
 function avancarSemana() {
-    gameState.currentWeek++;
-    
     // Verificar se há partidas não jogadas na rodada atual
     if (championship.schedule[championship.currentRound - 1]) {
         const round = championship.schedule[championship.currentRound - 1];
@@ -3022,6 +2955,9 @@ function avancarSemana() {
             }
         }
     }
+
+    // Só avança o calendário quando a semana puder realmente progredir
+    gameState.currentWeek++;
     
     // Processar scouts
     gameState.activeScouting = gameState.activeScouting.filter(scout => {
