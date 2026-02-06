@@ -1,124 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoL Manager 2025 - LTA Edition</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS DYNASTY — Esports Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- TELA DE LOADING -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <h1>⚔️ LoL MANAGER ⚔️</h1>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-            <p>Carregando recursos...</p>
-        </div>
-    </div>
+  <div id="app" class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <h1>NEXUS DYNASTY</h1>
+        <p>Esports Manager</p>
+      </div>
+      <button class="primary" id="new-save">Novo Jogo</button>
+      <button class="ghost" id="load-save">Carregar</button>
+      <nav id="nav" class="nav"></nav>
+      <div class="sidebar-footer">
+        <button class="ghost" id="save-game">Salvar</button>
+        <button class="ghost" id="reset-game">Resetar</button>
+      </div>
+    </aside>
 
-    <!-- MENU INICIAL -->
-    <div id="main-menu" class="main-menu" style="display: none;">
-        <div class="menu-background"></div>
-        <div class="menu-content">
-            <h1 class="game-title">⚔️ LoL MANAGER 2025 ⚔️</h1>
-            <h2 class="game-subtitle">LTA Edition</h2>
-            
-            <div class="menu-buttons">
-                <button class="menu-btn" id="btn-novo-jogo">
-                    <span class="btn-icon">🆕</span>
-                    <span>NOVO JOGO</span>
-                </button>
-                
-                <button class="menu-btn" id="btn-carregar-jogo">
-                    <span class="btn-icon">💾</span>
-                    <span>CARREGAR JOGO</span>
-                </button>
-                
-                <button class="menu-btn" id="btn-creditos">
-                    <span class="btn-icon">📜</span>
-                    <span>CRÉDITOS</span>
-                </button>
-                
-                <button class="menu-btn" id="btn-sair">
-                    <span class="btn-icon">🚪</span>
-                    <span>SAIR</span>
-                </button>
-            </div>
-            
-            <div class="version">Versão 5.0 - Ultimate Edition</div>
-        </div>
-    </div>
+    <main class="main">
+      <header class="topbar" id="topbar"></header>
+      <section id="view" class="view"></section>
+    </main>
+  </div>
 
-    <!-- SELEÇÃO DE TIME -->
-    <div id="team-selection" class="team-selection" style="display: none;">
-        <h2>Escolha seu Time</h2>
-        <div id="teams-grid" class="teams-grid">
-            <!-- Times serão adicionados via JavaScript -->
-        </div>
-        <button id="btn-voltar-menu" class="btn-voltar">Voltar</button>
-    </div>
+  <div id="modal" class="modal hidden"></div>
+  <div id="toast" class="toast"></div>
 
-    <!-- TELA PRINCIPAL DO JOGO -->
-    <div id="game-screen" class="game-screen" style="display: none;">
-        <!-- HEADER -->
-        <header class="header">
-            <div class="header-left">
-                <h2 id="team-name">LOUD</h2>
-                <span class="season" id="season-text">Split 1 - 2025</span>
-            </div>
-            <div class="header-center">
-                <div class="week-info">
-                    <span class="week-label">Semana</span>
-                    <span class="week-number" id="current-week">1</span>
-                </div>
-                <button id="btn-advance-week" class="btn-advance-week">
-                    ⏭️ Avançar Tempo
-                </button>
-            </div>
-            <div class="header-right">
-                <div class="resource">
-                    <span class="resource-icon">💰</span>
-                    <span id="money">R$ 500.000</span>
-                </div>
-                <div class="resource">
-                    <span class="resource-icon">⭐</span>
-                    <span id="reputation">75/100</span>
-                </div>
-                <div class="resource">
-                    <span class="resource-icon">😊</span>
-                    <span id="team-morale">85%</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- NAVEGAÇÃO LATERAL -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h3>MENU</h3>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <!-- Menu items serão adicionados via JavaScript -->
-            </ul>
-            <div class="sidebar-footer">
-                <button id="btn-save-game" class="btn-save">💾 Salvar</button>
-                <button id="btn-exit-to-menu" class="btn-exit">🚪 Menu</button>
-            </div>
-        </nav>
-
-        <!-- CONTEÚDO PRINCIPAL -->
-        <main class="content" id="main-content">
-            <!-- Conteúdo será carregado dinamicamente -->
-        </main>
-    </div>
-
-    <!-- MODAL CONTAINER -->
-    <div id="modal-container"></div>
-
-    <!-- NOTIFICATION CONTAINER -->
-    <div id="notification-container"></div>
-
-    <script src="game.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
